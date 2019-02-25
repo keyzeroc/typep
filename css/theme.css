@@ -1,0 +1,13 @@
+body{  
+    font-size: 1.2em;
+    background-color: #84b1f9;
+}
+header{
+	font-family: 'Anton', sans-serif;
+	background-color: #c174fc;
+	border-bottom: 1px black solid;	
+	border-bottom: 1px dotted black;
+}
+a:link, a:visited{
+	color: black;
+} 

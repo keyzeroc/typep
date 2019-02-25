@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Settings Storage Test</title>
+</head>
+<body>
+<script src="js/settings-storage.js"></script>
+<script>
+window.onload=function(){
+	tChangeTickDelayValue(1200);
+	tChangeWordDelayValue(1200);
+}
+function tChangeTickDelayValue(val) {
+	//save value to change everything back after test
+	let oldVal = getTickDelay();
+	let newVal = val;
+	setTickDelay(newVal);
+	getTickDelay()==newVal?console.log("Tick Delay Change Works"):console.log("something wrong");
+	setTickDelay(oldVal);
+}
+function tChangeWordDelayValue(val) {
+	//save value to change everything back after test
+	let oldVal = getWordDelay();
+	let newVal = val;
+	setWordDelay(newVal);
+	getWordDelay()==newVal?console.log("Word Delay Change Works"):console.log("something wrong");
+	setWordDelay(oldVal);
+}
+</script>
+</body>
+</html>

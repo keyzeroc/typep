@@ -1,0 +1,20 @@
+#app{
+	font-family: 'Poppins', sans-serif;
+	font-weight: bold;
+    height: 643px;
+    border-bottom: 1px black solid;
+}
+header{
+	font-weight: normal;
+}
+#stats{
+	font-family: 'Anton', sans-serif;
+	font-weight: normal;
+	background-color: #c174fc;
+	color: black;
+	border-bottom: 1px black solid;	
+}
+ul{
+    list-style: none;
+}  
+ 

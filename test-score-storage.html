@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Score Storage Test</title>
+</head>
+<body>
+<script src="js/score-storage.js"></script>
+<script>
+window.onload=function(){
+	tScoreSorting();
+}
+function tScoreSorting(){
+//backup old scores
+let oldScores = getScoreArray();
+clearAllScores();
+//add some random scores
+addNewScore(createScoreObject(10,5,1.2,1000,1000));	
+addNewScore(createScoreObject(54,8,2,1000,1000));	
+addNewScore(createScoreObject(2,2,1,1000,1000));	
+addNewScore(createScoreObject(88,5,4,1000,1000));	
+addNewScore(createScoreObject(18,2,9,1000,1000));
+//test if sorting sorks
+let newScores = getScoreArray();
+if(	newScores[0].words==88&&
+	newScores[1].words==54&&
+	newScores[2].words==18&&
+	newScores[3].words==10&&
+	newScores[4].words==2){
+	console.log("SCORE SORTING WORKS");
+}
+//add one more score to test top5 sorting
+addNewScore(createScoreObject(90,5,4,1000,1000));	
+newScores = getScoreArray();
+if(	newScores[0].words==90&&
+	newScores[1].words==88&&
+	newScores[2].words==54&&
+	newScores[3].words==18&&
+	newScores[4].words==10){
+	console.log("TOP5 SCORE SORTING WORKS FOR SURE. LMAO");
+}
+//set old scores back
+clearAllScores();
+setScoreArray(oldScores);
+}
+</script>
+</body>
+</html>
