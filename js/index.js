@@ -4,7 +4,8 @@ var timerTick, tickDelay;
 var timerSecond, secondDelay=1000;
 var lost=false, typed="";
 var lives=5, seconds=0, keys=0, words=0;
-
+/**
+set @wordList, setup key listener, load delays, load @allWords, start game **/
 window.onload=function(){
     wordList = document.querySelector("#wordList");
     window.onkeyup = function(e){ keyPress(e); }
@@ -15,6 +16,8 @@ window.onload=function(){
     allWords=getWordList();
     unpause();
 }    
+/**
+adds pressed key to @typed and calls function to chec if any word is complete **/
 function keyPress(e){
     if(lost) return;
     keys+=1;
@@ -22,6 +25,9 @@ function keyPress(e){
     typed+=String.fromCharCode(e.keyCode).toLowerCase();
     wordComplete();
 }
+/**
+if var @typed contains any word from @currentWords array 
+then delete this word from currentWords and reset @typed **/
 function wordComplete(){
     if(lost) return;
     for(let i = 0; i < currentWords.length; i++){
@@ -34,6 +40,9 @@ function wordComplete(){
         }
     }
 }
+/**
+move each word 20px down
+if any word is lower than 600px from top then decrease @lives by 1 **/
 function tick(){
     for(let i=0;i<currentWords.length;i++){
         if(lost) {
@@ -52,6 +61,8 @@ function tick(){
         }
     }
 }
+/**
+create word and setup it **/
 function spawnWord(){
     let wordElem = document.createElement("li");
     wordElem.textContent = allWords[Math.floor(Math.random() * allWords.length)];
@@ -61,6 +72,12 @@ function spawnWord(){
     wordList.appendChild(wordElem);
     currentWords.push(wordElem);               
 }
+/**
+ends game
+calls @pause to pause everything
+alert about game over
+save new score to all highscores
+**/
 function onGameOver(){
     // 0.pause game and notify about out of lives
     pause();
@@ -74,12 +91,18 @@ function onGameOver(){
         wordDelay      
     ));
 }
+/**
+pause all timeout loops **/
 function pause(){
     clearTimeout(timerSecond);
     clearTimeout(timerWord);
     clearTimeout(timerTick);
 }
+/**
+unpause all timeout loops **/
 function unpause(){
+    /**
+    counts seconds and checks if game is over to call @onGameOver **/
     timerSecond = setTimeout(function tickTimer() {
         seconds++;
         if(lost){
@@ -88,10 +111,14 @@ function unpause(){
         }
         timerSecond = setTimeout(tickTimer, secondDelay);    
     }, secondDelay);
+    /**
+    calls @spawnWord each @wordDelay **/
     timerWord = setTimeout(function tickTimer() {
         spawnWord();
         timerWord = setTimeout(tickTimer, wordDelay);    
     }, wordDelay);
+    /**
+    calls @tick each @tickDelay **/
     timerTick = setTimeout(function tickTimer() {
         tick();
         timerTick = setTimeout(tickTimer, tickDelay);    

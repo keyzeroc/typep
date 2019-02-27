@@ -1,5 +1,6 @@
 var scoreStorageName="highscores";
-// store top 5 scores only
+/**
+scoreObj constructor **/
 function scoreObj(words,kps,wps,tickDelay,wordDelay){
 	this.words=words;
 	this.kps=kps;
@@ -7,12 +8,21 @@ function scoreObj(words,kps,wps,tickDelay,wordDelay){
 	this.tickDelay=tickDelay;
 	this.wordDelay=wordDelay;
 }
+/**
+create score object by given attributes **/
 function createScoreObject(words,kps,wps,tickDelay,wordDelay) {
 	return new scoreObj(words,kps,wps,tickDelay,wordDelay);
 }
+/**
+compare function (decr order) **/
 function compareScores(a, b) {
   return b.words - a.words;
 }
+/**
+add new score to all scores (score top5 scores only)
+if score is not better then any of 5 top scores then it's not added
+if score is better then add it to array, sort array, and then remove 6th score from array, so only 5 top remains
+**/
 function addNewScore(newScoreObj){
 	let scoresArray = getScoreArray();
 	if(scoresArray.length<5){
@@ -30,6 +40,8 @@ function addNewScore(newScoreObj){
 		}
 	}
 }
+/**
+get scores array from localStorage **/
 function getScoreArray() {
 	let itemsArray = localStorage.getItem(scoreStorageName);
 	if (itemsArray == null || itemsArray =="") {
@@ -40,9 +52,13 @@ function getScoreArray() {
 	}
 	return itemsArray;
 }
+/**
+set scores array in localStorage **/
 function setScoreArray(newArray){
 	localStorage.setItem(scoreStorageName, JSON.stringify(newArray));
 }
+/**
+clear scores array from localStorage **/
 function clearAllScores(){
 	localStorage.removeItem(scoreStorageName);
 }
