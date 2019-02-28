@@ -1,11 +1,22 @@
+/**
+ * author: keyzeroc
+ * 
+ * Game Loop, Logics
+ */
 var wordList, allWords, currentWords=new Array();
 var timerWord, wordDelay;
 var timerTick, tickDelay;
 var timerSecond, secondDelay=1000;
 var lost=false, typed="";
 var lives=5, seconds=0, keys=0, words=0;
-/**
-set @wordList, setup key listener, load delays, load @allWords, start game **/
+/** 
+ * function is called when the page is fully loaded.
+ * adds key listener.
+ * loads word list form localStorage.
+ * loads tick delay from localStorage.
+ * loads word spawn delay from localStorage.
+ * unpauses (starts the 'game loop').
+ */
 window.onload=function(){
     wordList = document.querySelector("#wordList");
     window.onkeyup = function(e){ keyPress(e); }
@@ -17,7 +28,13 @@ window.onload=function(){
     unpause();
 }    
 /**
-adds pressed key to @typed and calls function to chec if any word is complete **/
+ * function is called when any key pressed.
+ * counts keystrokes and calculates KPS (Keys Per Second).
+ * adds pressed key character to all pressed characters string (typed).
+ * calls function wordComplete to check if any word is complete.
+ * 
+ * @param {KeyboardEvent} e - used to get keycode then convert keycode to character.
+ */
 function keyPress(e){
     if(lost) return;
     keys+=1;
@@ -26,8 +43,12 @@ function keyPress(e){
     wordComplete();
 }
 /**
-if var @typed contains any word from @currentWords array 
-then delete this word from currentWords and reset @typed **/
+ * loops through all currentWords array.
+ * if @typed includes any words from @currentWords -
+ * removes those words from @wordList and @currentWords array
+ * resets @typed string
+ * counts completed words and calculates WPS (Words Per Second).
+ */
 function wordComplete(){
     if(lost) return;
     for(let i = 0; i < currentWords.length; i++){
@@ -41,8 +62,12 @@ function wordComplete(){
     }
 }
 /**
-move each word 20px down
-if any word is lower than 600px from top then decrease @lives by 1 **/
+ * moves each word 20px down from top.
+ * if any words .top property is more than 600px -
+ * removes those words from @wordList and @currentWords array
+ * decreases @lives by 1 for each word, and shows @lives on page
+ * if @lives === 0 - sets @lost to true.
+ */
 function tick(){
     for(let i=0;i<currentWords.length;i++){
         if(lost) {
@@ -62,7 +87,11 @@ function tick(){
     }
 }
 /**
-create word and setup it **/
+ * creates li element, which represents word.
+ * sets text content of li.
+ * sets starting position of li.
+ * appends li to @wordList and adds it to @currentWords array.
+ */
 function spawnWord(){
     let wordElem = document.createElement("li");
     wordElem.textContent = allWords[Math.floor(Math.random() * allWords.length)];
@@ -73,16 +102,14 @@ function spawnWord(){
     currentWords.push(wordElem);               
 }
 /**
-ends game
-calls @pause to pause everything
-alert about game over
-save new score to all highscores
-**/
+ * ends game.
+ * calls function pause to pause all timers ('game loops').
+ * alerts that the game is over.
+ * saves new highscore.
+ */
 function onGameOver(){
-    // 0.pause game and notify about out of lives
     pause();
     alert("out of lives, words: "+words+". restart page to start again");
-    // 1.save highscore
     addNewScore(createScoreObject(
         words,
         document.querySelector("#KPS").textContent,
@@ -92,17 +119,21 @@ function onGameOver(){
     ));
 }
 /**
-pause all timeout loops **/
+ * clears timeouts on all timers ('game loops').
+ */
 function pause(){
     clearTimeout(timerSecond);
     clearTimeout(timerWord);
     clearTimeout(timerTick);
 }
 /**
-unpause all timeout loops **/
+ * unpauses all timers.
+ */
 function unpause(){
     /**
-    counts seconds and checks if game is over to call @onGameOver **/
+    * counts seconds.
+    * if game is over (lost === true) - calls function onGameOver.
+    */
     timerSecond = setTimeout(function tickTimer() {
         seconds++;
         if(lost){
@@ -112,13 +143,15 @@ function unpause(){
         timerSecond = setTimeout(tickTimer, secondDelay);    
     }, secondDelay);
     /**
-    calls @spawnWord each @wordDelay **/
+    * calls function @spawnWord each @wordDelay ms.
+    */
     timerWord = setTimeout(function tickTimer() {
         spawnWord();
         timerWord = setTimeout(tickTimer, wordDelay);    
     }, wordDelay);
     /**
-    calls @tick each @tickDelay **/
+    * calls function @tick each @tickDelay ms.
+    */
     timerTick = setTimeout(function tickTimer() {
         tick();
         timerTick = setTimeout(tickTimer, tickDelay);    
