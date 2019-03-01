@@ -1,14 +1,17 @@
+/**
+ * author: keyzeroc
+ * 
+ * Loads all highscores if present, and displays them on page
+ */
 window.onload=function(){
-	//get scores array from localstorage
+	// get highscores array form localStorage.
 	let scoreArray = getScoreArray();
-	//if no scores then nothing to display
-	if(scoreArray.length===0){
-		alert("No scores yet!");
-	//if scores exist then display them on page
-	}else{
-		//get parent element
+	// check if scores present.
+	if(scoreArray.length===0){ alert("No scores yet!"); }
+	// if scores present then display them on page.
+	else{
 		let scoresList = document.querySelector("#highscores");
-		//append each children to parent element
+		//append each child elem to parent elem.
 		for(let i=0;i<scoreArray.length;i++){
 			let scoreElem = document.createElement("li");
 			scoreElem.textContent=

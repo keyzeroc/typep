@@ -40,8 +40,8 @@ function compareScores(a, b) {
   return b.words - a.words;
 }
 /**
- * adds new score to all scores if score is good enough
- * @param {scoreObj} newScoreObj - score object to store
+ * adds new score to all scores if score is good enough.
+ * @param {scoreObj} newScoreObj - score object to store.
  */
 function addNewScore(newScoreObj){
 	let scoresArray = getScoreArray();
@@ -51,18 +51,18 @@ function addNewScore(newScoreObj){
 		localStorage.setItem(scoreStorageName, JSON.stringify(scoresArray));
 	}else{
 		if(scoresArray[4].words>newScoreObj.words){
-			//ignore if our score isn't good enough
+			//ignore if our score isn't good enough.
 		}else{
-			scoresArray.push(newScoreObj); // add new score to all score array
-			scoresArray.sort(compareScores); // sort scores in descending order using our function
-			scoresArray.splice(5,1); // remove 6th score (worst)
+			scoresArray.push(newScoreObj); // add new score to all score array.
+			scoresArray.sort(compareScores); // sort scores in descending order using our function.
+			scoresArray.splice(5,1); // remove 6th score (worst).
 			localStorage.setItem(scoreStorageName, JSON.stringify(scoresArray));
 		}
 	}
 }
 /**
- * gets highscores array from localStorage and returns it
- * if it's not present - creates empty array and returns it
+ * gets highscores array from localStorage and returns it.
+ * if it's not present - creates empty array and returns it.
  */
 function getScoreArray() {
 	let itemsArray = localStorage.getItem(scoreStorageName);
@@ -75,14 +75,14 @@ function getScoreArray() {
 	return itemsArray;
 }
 /**
- * sets highscores array to localStorage
+ * sets highscores array in localStorage.
  * @param {Array} newArray 
  */
 function setScoreArray(newArray){
 	localStorage.setItem(scoreStorageName, JSON.stringify(newArray));
 }
 /**
- * clears all highscores in localStorage
+ * clears all highscores in localStorage.
  */
 function clearAllScores(){
 	localStorage.removeItem(scoreStorageName);
