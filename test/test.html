@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/2.1.0/mocha.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/2.1.0/mocha.js"></script>
+  <script>mocha.setup('bdd');</script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chai/2.0.0/chai.js"></script>
+  <script>var assert = chai.assert;</script>
+</head>
+<body>
+<script src="../js/score-storage.js"></script>
+<script src="../js/settings-storage.js"></script>
+<script src="../js/wordlist-storage.js"></script>
+<script>
+function testScores(wordValuesArray){
+  //backup old scores
+  let oldScores = getScoreArray();
+  clearAllScores();
+
+  //add scores with given word property values
+  for(let i=0; i<wordValuesArray.length; i++){
+    addNewScore(createScoreObject( wordValuesArray[i], 5,2,1000,1000));	  
+  }
+  let newScores = getScoreArray();
+
+  //set old scores back
+  clearAllScores();
+  setScoreArray(oldScores);	
+
+  return newScores;
+}
+function testTickDelay(val) {
+	//backup old value
+  let oldVal = getTickDelay();
+  
+	setTickDelay(val);
+  let newVal = getTickDelay(); 
+
+  //set old value back
+  setTickDelay(oldVal);
+
+  return newVal;
+}
+function testWordDelay(val) {
+	//backup old value
+  let oldVal = getWordDelay();
+  
+	setWordDelay(val);
+  let newVal = getWordDelay(); 
+
+  //set old value back
+  setWordDelay(oldVal);
+
+  return newVal;
+}
+function testWordList(array){
+  //backup old list
+  let oldWordList = getWordList();
+
+  setWordList(array); 
+  let newWordList = getWordList();
+
+  //set old word list back back
+  setWordList(oldWordList);
+
+  return newWordList;
+}
+</script>
+<script src="test.js"></script>
+<div id="mocha"></div>
+<script>mocha.run();</script>
+</body>
+</html>
