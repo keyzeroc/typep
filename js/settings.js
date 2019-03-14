@@ -27,11 +27,7 @@ function loadWords(){
 	let currentList = getWordList();
 	let result="";
 	for(let i=0;i<currentList.length;i++){
-		if(i===currentList.length-1){
-			result+=currentList[i];
-		}else{
-			result+=currentList[i]+",";
-		}	
+		i===currentList.length-1 ? result+=currentList[i] : result+=currentList[i]+",";
 	}
 	return result;
 }
