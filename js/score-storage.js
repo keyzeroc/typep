@@ -3,7 +3,8 @@
  * 
  * functions to work with highscores array in localStorage
  */
-var scoreStorageName="highscores";
+// import all consts
+const scoreStorageName = "highscores";
 /**
  * represents score
  * @constructor
