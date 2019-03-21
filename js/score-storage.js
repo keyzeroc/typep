@@ -3,7 +3,6 @@
  * 
  * functions to work with highscores array in localStorage
  */
-// import all consts
 const scoreStorageName = "highscores";
 /**
  * represents score
