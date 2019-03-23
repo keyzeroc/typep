@@ -1,13 +1,15 @@
 body{  
-    font-size: 1.2em;
-    background-color: #84b1f9;
+	font-size: 1.2em;
+	color: #ffffff;
+	background-color: #141414;
+
 }
 header{
 	font-family: 'Anton', sans-serif;
-	background-color: #c174fc;
+	background-color: #4f4f4f;
 	border-bottom: 1px black solid;	
 	border-bottom: 1px dotted black;
 }
 a:link, a:visited{
-	color: black;
+	color: #ffffff;
 } 
