@@ -2,11 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/2.1.0/mocha.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/2.1.0/mocha.js"></script>
   <script>mocha.setup('bdd');</script>
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/chai/2.0.0/chai.js"></script>
   <script>var assert = chai.assert;</script>
 </head>
@@ -15,28 +13,35 @@
 <script src="../js/settings-storage.js"></script>
 <script src="../js/wordlist-storage.js"></script>
 <script>
+// test functions that work with highscores array in localStorage
 function testScores(wordValuesArray){
   //backup old scores
   let oldScores = getScoreArray();
+  //clear highscores array in localStorage
   clearAllScores();
 
-  //add scores with given word property values
+  //add scores with given .word property values
   for(let i=0; i<wordValuesArray.length; i++){
     addNewScore(createScoreObject( wordValuesArray[i], 5,2,1000,1000));	  
   }
+  //retrieve new highscores array from localStorage
   let newScores = getScoreArray();
 
-  //set old scores back
+  //clear highscores array in localStorage
   clearAllScores();
+  //set old scores back
   setScoreArray(oldScores);	
 
   return newScores;
 }
+// test functions that work with tickDelay in localStorage
 function testTickDelay(val) {
-	//backup old value
+  //backup old value
   let oldVal = getTickDelay();
-  
-	setTickDelay(val);
+
+  //set tickDelay value to our test value in localStorage
+  setTickDelay(val);
+  //retrieve new tickDelay value from localStorage
   let newVal = getTickDelay(); 
 
   //set old value back
@@ -44,11 +49,14 @@ function testTickDelay(val) {
 
   return newVal;
 }
+// test functions that work with wordDelay in localStorage
 function testWordDelay(val) {
-	//backup old value
+  //backup old value
   let oldVal = getWordDelay();
   
-	setWordDelay(val);
+  //set wordDelay value to our test value in localStorage
+  setWordDelay(val);
+  //retrieve new wordDelay value from localStorage
   let newVal = getWordDelay(); 
 
   //set old value back
@@ -56,14 +64,17 @@ function testWordDelay(val) {
 
   return newVal;
 }
+// test functions that work with wordlist in localStorage
 function testWordList(array){
   //backup old list
   let oldWordList = getWordList();
-
-  setWordList(array); 
+	
+  //set wordlist array as our test array in localStorage
+  setWordList(array);
+  //retrieve new array from localStorage
   let newWordList = getWordList();
 
-  //set old word list back back
+  //set old wordlist back
   setWordList(oldWordList);
 
   return newWordList;
